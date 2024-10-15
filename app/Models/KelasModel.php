@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class KelasModel extends Model
 {
     use HasFactory;
-    protected $table = 'kelas';
+    
     protected $guarded = ['id'];
+    protected $table = 'kelas';
+
+    public function getKelas(){
+        return $this->all();
+    }
 
     public function user()
     {
