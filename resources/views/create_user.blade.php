@@ -1,9 +1,12 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
+    <title>Create User</title> -->
+    @extends('layouts.app')
+
+    @section('content')
     <style>
         body {
             background-color: #f48fb1;
@@ -96,5 +99,6 @@
             <button type="submit" class="btn-primary">Submit</button>
         </form>
     </div>
-</body>
-</html>
+@endsection
+<!-- </body>
+</html> -->
