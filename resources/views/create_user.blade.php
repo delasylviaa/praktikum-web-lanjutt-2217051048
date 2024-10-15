@@ -56,31 +56,45 @@
         .btn-primary:hover {
             background-color: #00BCD4;
         }
+
+        select {
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #2196F3;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-
         <form action="{{ route('user.store') }}" method="POST">
             @csrf
+            <!-- Input Nama -->
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text" class="form-control" name="nama" id="nama" required>
             </div>
 
+            <!-- Input NPM -->
             <div class="mb-3">
                 <label for="npm" class="form-label">NPM</label>
                 <input type="text" class="form-control" name="npm" id="npm" required>
             </div>
 
+            <!-- Select Kelas -->
             <div class="mb-3">
-                <label for="kelas" class="form-label">Kelas</label>
-                <input type="text" class="form-control" name="kelas" id="kelas" required>
+                <label for="kelas_id">Kelas</label><br>
+                <select name="kelas_id" id="kelas_id" required>
+                    @foreach ($kelas as $kelasItem)
+                        <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
+                    @endforeach
+                </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <!-- Tombol Submit -->
+            <button type="submit" class="btn-primary">Submit</button>
         </form>
     </div>
-
 </body>
 </html>
