@@ -71,9 +71,8 @@
 </head>
 <body>
     <div class="container mt-5">
-        <form action="{{ route('user.store') }}" method="POST">
-            @csrf
-            <!-- Input Nama -->
+        <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
                 <input type="text" class="form-control" name="nama" id="nama" required>
@@ -93,6 +92,11 @@
                         <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="foto">foto:</label>
+                <input type="file" class="form-control" name="foto" id="foto" required>
             </div>
 
             <!-- Tombol Submit -->
