@@ -47,20 +47,32 @@ class UserController extends Controller
     //     ]);
     // }
 
-    public function store(Request $request)
-    {
-        $this->userModel->create([
-            'nama' => $request->input('nama'),
-            'npm' => $request->input('npm'),
-            'kelas_id' => $request->input('kelas_id'),     
+    public function store(Request $request){
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'kelas_id' => 'required|exists:kelas,id',
+            'npm' => 'required|string|max:255',
+            'foto' => 'file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        return redirect()->to('/user');
-        // $validatedData = $request->validate([
-        //     'nama' => 'required|string|max:255',
-        //     'npm' => 'required|string|max:255',
-        //     'kelas_id' => 'required|exists:kelas,id',
-        // ]);
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('upload', $filename, 'public');
+
+            $this->userModel->create([
+                'nama' => $request->input('nama'),
+                'npm' => $request->input('npm'),
+                'kelas_id' => $request->input('kelas_id'), 
+                'foto' => $filename,        
+            ]);
+
+            
+        }
+
+        // return redirect()->to('/user/list');
+
+        return redirect()->to('/user')->with('success', 'User berhasil ditambahkan');
 
         // $user = UserModel::create($validatedData);
 
@@ -68,15 +80,9 @@ class UserController extends Controller
 
         // return view('profile', [
         //     'nama' => $user->nama,
-        //     'npm' => $user->npm,
         //     'nama_kelas' => $user->kelas->nama_kelas ?? 'Kelas tidak ditemukan',
+        //     'npm' => $user->npm,
         // ]);
-        // $data = [
-        //     'nama' => $request->input('nama'),
-        //     'kelas' => $request->input('kelas'),
-        //     'npm' => $request->input('npm'),
-        // ];
-        // return view('profile', $data);
     }
 
     // public function profile($nama = "", $kelas = "", $npm = "")
@@ -89,4 +95,22 @@ class UserController extends Controller
         
     //     return view('profile', $data);
     // }
+
+    public function show($id) {
+    $user = $this->userModel->getUser($id);
+
+    if (!$user) {
+        return redirect()->route('user.index')->with('error', 'User tidak ditemukan');
+    }
+
+    $data = [
+        'title' => 'Profile',
+        'nama' => $user->nama,
+        'nama_kelas' => $user->nama_kelas,
+        'npm' => $user->npm,
+        'foto' => $user->foto
+    ];
+    
+    return view('profile', $data);
+    }
 }
