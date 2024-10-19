@@ -65,23 +65,23 @@
 <body>
     <div class="profile-card">
         <div class="profile-img">
-            <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" alt="Profile Image">
+            <img src="{{ asset('storage/upload/' . $foto) }}" alt="Profile Image">
         </div>
         <table class="profile-info">
             <tr>
                 <td>Nama</td>
                 <td>:</td>
-                <td><?= $nama ?></td>
+                <td>{{ $nama }}</td>
             </tr>
             <tr>
                 <td>NPM</td>
                 <td>:</td>
-                <td><?= $npm ?></td>
+                <td>{{ $npm }}</td>
             </tr>
             <tr>
                 <td>Kelas</td>
                 <td>:</td>
-                <td>{{$nama_kelas ?? 'Kelas Tidak Ditemukan'}}</td>
+                <td>{{ $nama_kelas ?? 'Kelas Tidak Ditemukan' }}</td>
             </tr>
         </table>
     </div>

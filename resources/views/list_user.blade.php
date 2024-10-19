@@ -6,17 +6,17 @@
         background-color: #f48fb1; 
         display: flex;
         justify-content: center;
-        align-items: flex-start; /* Konten dimulai dari atas */
+        align-items: flex-start; 
         min-height: 100vh;
         margin: 0;
-        padding-top: 20px; /* Jarak dari atas */
+        padding-top: 20px;
     }
 
     .container {
         max-width: 800px;
         width: 100%;
         display: block;
-        margin-bottom: 20px; /* Jarak antar elemen */
+        margin-bottom: 20px;
     }
 
     .card {
@@ -28,37 +28,12 @@
         text-align: center;
     }
 
-    .btn-blue {
-        background-color: #90caf9; 
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 8px 16px;
-        transition: all 0.3s;
-    }
-
-    .btn-blue:hover {
-        background-color: #64b5f6; 
-        color: white;
-    }
-
-    .btn-blue-outline {
-        color: #90caf9;
-        border: 1px solid #90caf9;
-        background-color: transparent;
-        transition: all 0.3s;
-    }
-
-    .btn-blue-outline:hover {
-        background-color: #e3f2fd;
-    }
-
     .table-container {
         background-color: #e3f2fd;
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 20px; /* Jarak dari tombol */
+        margin-top: 20px;
         overflow: hidden;
     }
 
@@ -87,35 +62,59 @@
         text-align: center;
     }
 
-    .table tbody tr:hover {
-        background-color: #e3f2fd;
-    }
-
-    /* Style untuk tombol tambah pengguna baru */
     .btn-new-user {
-        background-color: #42a5f5; /* Warna biru muda */
+        background-color: #42a5f5;
         color: white;
         border-radius: 8px;
         padding: 10px 20px;
         font-size: 16px;
         transition: all 0.3s;
-        margin-bottom: 10px; /* Jarak dari tabel */
+        margin-bottom: 20px;
     }
 
     .btn-new-user:hover {
-        background-color: #64b5f6; /* Warna saat di-hover */
+        background-color: #64b5f6;
+    }
+
+    /* Tombol untuk delete */
+    .btn-pink-outline {
+        color: #f48fb1;
+        border: 1px solid #f48fb1;
+        background-color: transparent;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: all 0.3s;
+    }
+
+    .btn-pink-outline:hover {
+        background-color: #f8bbd0;
+        color: white;
+    }
+
+    /* Tombol edit */
+    .btn-blue-outline {
+        color: #90caf9;
+        border: 1px solid #90caf9;
+        background-color: transparent;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: all 0.3s;
+    }
+
+    .btn-blue-outline:hover {
+        background-color: #64b5f6;
+        color: white;
     }
 </style>
 
 <div class="container">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h1 class="text-center mb-4" style="color: #90caf9;">Daftar Mahasiswa</h1>
+            <h1 class="text-center mb-4" style="color: #90caf9;">Daftar Pengguna</h1>
             
-            <!-- Tombol tambah pengguna baru di luar table container -->
+            <!-- Tombol tambah pengguna baru -->
             <a href="{{ route('user.create') }}" class="btn btn-new-user">Tambah Pengguna Baru</a>
 
-            <!-- Container biru yang berisi tabel -->
             <div class="table-container">
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -134,15 +133,28 @@
                             <tr>
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->nama }}</td>
-                                <td>{{ $user->nama_kelas }}</td>    
+                                <td>{{ $user->nama_kelas }}</td>
                                 <td>{{ $user->npm }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/upload/'.$user->foto) }}" alt="foto user" width="100">
+                                    @if($user->foto)
+                                        <img src="{{ asset('storage/upload/'. $user->foto) }}" alt="foto user" width="100">
+                                    @else
+                                        <p>Tidak ada foto</p>
+                                    @endif
                                 </td>
                                 <td>
+                                    <!-- Tombol Detail -->
                                     <a href="{{ route('user.show', $user->id) }}" class="btn btn-warning mb-3">Detail</a>
-                                    <button class="btn btn-sm btn-blue-outline">Edit</button>
-                                    <button class="btn btn-sm btn-blue-outline">Hapus</button>
+
+                                    <!-- Tombol Edit -->
+                                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-blue-outline">Edit</a>
+
+                                    <!-- Form Delete -->
+                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-pink-outline" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
