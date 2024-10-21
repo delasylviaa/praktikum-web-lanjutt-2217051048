@@ -18,9 +18,9 @@ class UserController extends Controller
 
     public function index(){
         $data = [
-            'title' => 'Create User',
+            'title' => 'List User',
             'users' => $this->userModel->getUser(),
-            'kelas' => $this->userModel->getUser(),
+            //'kelas' => $this->userModel->getUser(),
         ];
 
         return view ('list_user', $data);
