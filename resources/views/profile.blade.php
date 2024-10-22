@@ -83,6 +83,16 @@
                 <td>:</td>
                 <td>{{ $nama_kelas ?? 'Kelas Tidak Ditemukan' }}</td>
             </tr>
+            <tr>
+                <td>Jurusan</td>
+                <td>:</td>
+                <td>{{ $jurusan }}</td>
+            </tr>
+            <tr>
+                <td>Semester</td>
+                <td>:</td>
+                <td>{{ $semester }}</td>
+            </tr>
         </table>
     </div>
 </body>

@@ -95,6 +95,16 @@
             </div>
 
             <div class="mb-3">
+                <label for="jurusan" class="form-label">Jurusan</label>
+                <input type="text" class="form-control" name="jurusan" id="jurusan" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="semester" class="form-label">Semester</label>
+                <input type="text" class="form-control" name="semester" id="semester" required>
+            </div>
+
+            <div class="mb-3">
                 <label for="foto">foto:</label>
                 <input type="file" class="form-control" name="foto" id="foto" required>
             </div>
