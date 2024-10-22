@@ -90,6 +90,16 @@
             </div>
 
             <div class="mb-3">
+                <label for="jurusan" class="form-label">Jurusan</label>
+                <input type="text" class="form-control" name="jurusan" id="jurusan" value="{{ old('jurusan', $user->jurusan) }}" placeholder="Masukan jurusan anda" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="semester" class="form-label">Semester</label>
+                <input type="text" class="form-control" name="semester" id="semester" value="{{ old('semester', $user->semester) }}" placeholder="Masukan semester anda" required>
+            </div>
+
+            <div class="mb-3">
                 <label for="foto">Foto</label>
                 <input type="file" id="foto" class="form-control" name="foto">
                 <br>
